@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student QR Generator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Student QR Generator</h1>
+
+        <div class="nav-buttons">
+            <button onclick="goBack()"> Back</button>
+            <button onclick="refreshPage()"> Refresh</button>
+        </div>
+
+        <div class="form-group">
+            <input id="studentID" placeholder="Student ID">
+            <input id="name" placeholder="Name">
+            <input type="number" id="contact" placeholder="Contact Number">
+            <input type="email" id="email" placeholder="Email">
+            <input id="address" placeholder="Address">
+            <input id="course" placeholder="Course">
+            <select id="year">
+            <option value="">Select Year</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+        </select><br><br>
+        </div>
+
+        <button class="generate-btn" onclick="generateQR()">Generate QR</button>
+
+        <h3>QR Code:</h3>
+        <div class="qr-container">
+            <img id="qrImage" alt="QR Code will appear here">
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = "main.html";
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+            
+        async function generateQR() {
+            const info = {
+                StudentID: document.getElementById('studentID').value.trim(),
+                Name: document.getElementById('name').value.trim(),
+                Contact: document.getElementById('contact').value.trim(),
+                Email: document.getElementById('email').value.trim(),
+                Address: document.getElementById('address').value.trim(),
+                Course: document.getElementById('course').value.trim(),
+                Year: document.getElementById('year').value
+            };
+
+            // ✅ Check if any field is empty
+            for (const key in info) {
+                if (!info[key]) {
+                    alert(`Please fill in the ${key} field.`);
+                    return; // Stop execution
+                }
+            }
+
+            // Validate email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailPattern.test(info.Email)){
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Validate contact number (11 digits)
+            if(!/^\d{11}$/.test(info.Contact)){
+                alert("Contact number must be exactly 11 digits.");
+                return;
+            }
+
+            // Validate year
+            const validYears = ["1st Year","2nd Year","3rd Year","4th Year"];
+            if(!validYears.includes(info.Year)){
+                alert("Please select a valid year.");
+                return;
+            }
+
+            const response = await fetch('/api/qr/generate', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(info)
+            });
+
+            if(response.ok){
+                const blob = await response.blob();
+                document.getElementById('qrImage').src = URL.createObjectURL(blob);
+            } else {
+                const text = await response.text();
+                alert("Error: " + text);
+            }
+        }
+    </script>
+</body>
+</html>

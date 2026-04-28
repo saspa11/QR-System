@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: linear-gradient(145deg, #1c1c1c, #262626);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+h1 {
+    color: #00ffd5;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    text-shadow: 0 0 10px #00ffd5;
+}
+
+p {
+    color: #bf3939;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: #2a2a2a;
+    color: #ed2720;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+    background-color: #3a3a3a;
+    box-shadow: 0 0 10px #00ffd5;
+    color: #00ffd5;
+}
+
+input::placeholder, select {
+    color: #888888;
+}
+
+button {
+    padding: 14px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(80deg, #00ffd5, #00b8a9);
+    color: #121212;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 255, 213, 0.3);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 255, 213, 0.6);
+    background: linear-gradient(90deg, #00b8a9, #00ffd5);
+}
+
+.generate-btn {
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+.qr-container {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 16px;
+    background: #1c1c1c;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.qr-container img {
+    margin-top: 10px;
+    max-width: 220px;
+    border: 3px solid #00ffd5;
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(0, 255, 213, 0.6);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.qr-container img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px rgba(0, 255, 213, 0.8);
+}
+
+/* Small responsive tweak */
+@media (max-width: 500px) {
+    .container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    button, .generate-btn {
+        font-size: 1rem;
+        padding: 12px 18px;
+    }
+}
